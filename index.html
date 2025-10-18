@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Age Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- Loader -->
+    <div id="loader" class="loader-overlay">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p class="loader-text">Loading...</p>
+        </div>
+    </div>
+
+    <!-- Animated Starfield Background -->
+    <canvas id="starfield"></canvas>
+
+    <!-- Menu Button (top-left) -->
+    <button id="menuBtn" class="menu-btn" title="Menu">☰</button>
+    
+    <!-- Menu Dropdown -->
+    <div id="menuDropdown" class="menu-dropdown">
+        <button id="themeToggleMenu" class="menu-item">
+            <span id="themeIcon">🌙</span>
+            <span>Toggle Theme</span>
+        </button>
+        <button id="settingsBtnMenu" class="menu-item">
+            <span>⚙️</span>
+            <span>Settings</span>
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- DOB Input Section -->
+        <div id="dobInput" class="dob-section">
+            <h1 class="title">Age Dashboard</h1>
+            <p class="subtitle">Enter your date of birth to see your precise age</p>
+            <div class="input-group">
+                <input type="date" id="dob" required />
+                <button id="saveDob" class="btn-primary">Save & Start</button>
+            </div>
+            <p id="errorMsg" class="error-msg"></p>
+        </div>
+
+        <!-- Age Display Section -->
+        <div id="ageDisplay" class="age-section" style="display:none;">
+            <!-- <h1 class="title">Your Age Right Now</h1> -->
+            <div class="age-display-container">
+                <!-- Three drifting circles -->
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+                <div class="circle circle-3"></div>
+                
+                <!-- Age content on top -->
+                <div class="age-content">
+                    <div class="age-number">
+                        <span id="ageWhole" class="age-whole"></span><span id="ageDecimal" class="age-decimal"></span>
+                    </div>
+                    <!-- <p class="age-label">years old</p> -->
+                </div>
+            </div>
+
+            <!-- Enhanced Statistics Panel -->
+            <div id="statsPanel" class="stats-panel" style="display:none;">
+                <h3 class="section-title">📊 Life Statistics</h3>
+                <div class="stats-grid">
+                    <!-- <div class="stat-item">
+                        <div class="stat-value" id="daysLived">0</div>
+                        <div class="stat-label">Days Lived</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="hoursLived">0</div>
+                        <div class="stat-label">Hours Lived</div>
+                    </div> -->
+                    <div class="stat-item">
+                        <div class="stat-value" id="birthdayCountdown">Loading...</div>
+                        <div class="stat-label">Until Birthday</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="ageDuration">0</div>
+                        <div class="stat-label">Days at Current Age</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="year-progress-container">
+                            <!-- <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" id="yearProgressBar"></div>
+                            </div> -->
+                            <div class="stat-value" id="yearProgress">0%</div>
+                        </div>
+                        <div class="stat-label">Year Progress</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Milestone Panel -->
+            <div id="milestonePanel" class="milestone-panel" style="display:none;">
+                <h3 class="section-title">🎯 Next Milestone</h3>
+                <div id="nextMilestone" class="next-milestone">
+                    <div class="milestone-name">Calculating...</div>
+                    <div class="milestone-countdown">---</div>
+                </div>
+                <button id="viewMilestonesBtn" class="btn-link">View Milestone History</button>
+            </div>
+
+            <!-- Clock Widget -->
+            <div id="clockWidget" class="clock-widget" style="display:none;">
+                <div id="currentTime" class="current-time">--:--:--</div>
+                <div id="currentDate" class="current-date">---</div>
+                <div id="timezone" class="timezone">---</div>
+            </div>
+
+            <!-- Todo List Widget -->
+            <div id="todoWidget" class="todo-widget" style="display:none;">
+                <div class="widget-header">
+                    <h3 class="section-title">✅ Todo List</h3>
+                    <button id="toggleTodoBtn" class="toggle-btn">−</button>
+                </div>
+                <div id="todoContent" class="todo-content">
+                    <div class="todo-input-group">
+                        <input type="text" id="todoInput" placeholder="Add a new task..." />
+                        <button id="addTodoBtn" class="btn-small">Add</button>
+                    </div>
+                    <ul id="todoList" class="todo-list"></ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚙️ Settings</h2>
+                <button id="closeSettings" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <h3 class="settings-section-title">Widgets</h3>
+                <label class="setting-item">
+                    <input type="checkbox" id="showStats" />
+                    <span>Show Life Statistics</span>
+                </label>
+                <label class="setting-item">
+                    <input type="checkbox" id="showMilestones" />
+                    <span>Show Milestones</span>
+                </label>
+                <label class="setting-item">
+                    <input type="checkbox" id="showClock" />
+                    <span>Show Clock</span>
+                </label>
+                <label class="setting-item">
+                    <input type="checkbox" id="showTodo" />
+                    <span>Show Todo List</span>
+                </label>
+                <label class="setting-item">
+                    <input type="checkbox" id="showAnniversaries" />
+                    <span>Show Anniversaries</span>
+                </label>
+                
+                <h3 class="settings-section-title">Appearance</h3>
+                <label class="setting-item">
+                    <input type="checkbox" id="showAnimation" />
+                    <span>Animated Starfield Background</span>
+                </label>
+                
+                <h3 class="settings-section-title">Anniversaries</h3>
+                <div class="settings-anniversary-section">
+                    <div class="settings-anniversary-input-group">
+                        <input type="text" id="settingsAnniversaryLabel" placeholder="Event name..." />
+                        <input type="date" id="settingsAnniversaryDate" />
+                        <button id="settingsAddAnniversaryBtn" class="btn-small">Add</button>
+                    </div>
+                    <div id="settingsAnniversaryList" class="settings-anniversary-list"></div>
+                </div>
+                
+                <h3 class="settings-section-title">Account</h3>
+                <button id="changeDobSettings" class="btn-setting-action">Change Date of Birth</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Milestone History Modal -->
+    <div id="milestoneHistoryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🏆 Milestone History</h2>
+                <button id="closeMilestoneHistory" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="milestoneHistoryList" class="milestone-history-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Birthday Celebration -->
+    <div id="birthdayCelebration" class="celebration-overlay" style="display:none;">
+        <div class="celebration-content">
+            <h1 class="celebration-title">🎉 Happy Birthday! 🎉</h1>
+            <p class="celebration-message">Wishing you an amazing year ahead!</p>
+            <button id="closeCelebration" class="btn-primary">Thank You! 🎂</button>
+        </div>
+        <canvas id="confettiCanvas"></canvas>
+    </div>
+
+    <!-- Milestone Celebration -->
+    <div id="milestoneCelebration" class="celebration-overlay" style="display:none;">
+        <div class="celebration-content">
+            <h1 class="celebration-title" id="milestoneTitle">🎯 Milestone Reached!</h1>
+            <p class="celebration-message" id="milestoneMessage">---</p>
+            <button id="closeMilestoneCelebration" class="btn-primary">Awesome!</button>
+        </div>
+        <canvas id="milestoneConfettiCanvas"></canvas>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
