@@ -64,7 +64,7 @@ A beautiful Chrome Extension that replaces your new tab page with a real-time ag
 ### **Method 2: Manual Setup**
 
 1. Create a new folder for the extension
-2. Copy all files (`manifest.json`, `index.html`, `style.css`, `script.js`)
+2. Copy all files including the entire `scripts/` directory
 3. Follow steps 2-4 from Method 1
 
 ## 🎮 Usage
@@ -140,11 +140,26 @@ On mobile, some widgets are hidden to maintain the single-page design.
 ### **Files Structure**
 ```
 age-extension/
-├── manifest.json          # Extension configuration (Manifest V3)
-├── index.html             # Main HTML structure
-├── style.css              # Styling and animations
-├── script.js              # Core functionality
-└── README.md              # This file
+├── manifest.json              # Extension configuration (Manifest V3)
+├── index.html                 # Main HTML structure
+├── style.css                  # Styling and animations
+├── error-handler.js           # Global error handling
+├── scripts/
+│   ├── main.js               # Modular entry point
+│   ├── modules/              # Feature modules
+│   │   ├── ageCalculator.js   # Age calculation logic
+│   │   ├── milestoneSystem.js # Milestone tracking
+│   │   ├── todoManager.js     # Todo list management
+│   │   ├── settingsManager.js # Settings management
+│   │   ├── storage.js         # Chrome storage abstraction
+│   │   └── animationManager.js # Animation control
+│   ├── ui/
+│   │   └── domManager.js      # DOM manipulation utilities
+│   └── utils/
+│       ├── constants.js       # App constants
+│       ├── dateUtils.js       # Date utility functions
+│       └── helpers.js         # General helpers
+└── README.md                  # This file
 ```
 
 ### **Storage**
@@ -182,17 +197,19 @@ The extension automatically celebrates these life milestones:
 3. Reload the extension in `chrome://extensions/`
 4. Test in a new tab
 
-### **File Structure**
-- `manifest.json` - Chrome extension configuration
-- `index.html` - HTML structure and layout
-- `style.css` - CSS styling and animations
-- `script.js` - JavaScript functionality
+### **Architecture**
+- **Modular Design** - Clean separation of concerns with dedicated modules
+- **Main Entry Point** - `scripts/main.js` orchestrates all modules
+- **Feature Modules** - Each major feature in its own module (age calculation, milestones, todos, etc.)
+- **UI Abstraction** - `domManager.js` centralizes all DOM operations
+- **Utilities** - Shared functions organized by purpose (date, helpers, constants)
 
 ### **Key Features Implementation**
-- **Real-time Updates** - `setInterval()` for age calculation
-- **Animations** - CSS keyframes and JavaScript canvas
-- **Storage** - Chrome storage API for persistence
-- **Event Handling** - Modern JavaScript event delegation
+- **Real-time Updates** - `setInterval()` for age calculation via AgeCalculator module
+- **Animations** - CSS keyframes with animationManager module for control
+- **Storage** - Chrome storage API abstraction via storage module
+- **Event Handling** - Modern JavaScript event delegation with centralized handlers
+- **Error Handling** - Global error handler with crash logging
 
 ## 📄 License
 

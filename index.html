@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Age Dashboard</title>
@@ -127,6 +126,13 @@
                 </div>
             </div>
 
+            <!-- Anniversaries Widget -->
+            <div id="anniversariesWidget" class="anniversaries-widget" style="display:none;">
+                <h3 class="section-title">🎂 Anniversaries</h3>
+                <ul id="anniversariesList" class="anniversaries-list"></ul>
+                <p id="noAnniversariesMsg" style="text-align: center; opacity: 0.7; padding: 1rem; font-size: 0.9rem;">No anniversaries added. Go to settings to add one!</p>
+            </div>
+
         </div>
     </div>
 
@@ -244,7 +250,7 @@
         }
     </script>
 
-    <!-- Main Script -->
-    <script src="script.js"></script>
+    <!-- Modular Main Script -->
+    <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
