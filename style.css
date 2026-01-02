@@ -1132,6 +1132,22 @@ body.light-theme .circle-3 {
     }
 }
 
+/* Crash Logs Styling */
+.crash-logs-list {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.crash-log-item details summary:hover {
+    opacity: 1;
+}
+
+.crash-log-item pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
     width: 8px;

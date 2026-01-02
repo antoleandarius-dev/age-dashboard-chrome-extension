@@ -178,6 +178,26 @@
                 
                 <h3 class="settings-section-title">Account</h3>
                 <button id="changeDobSettings" class="btn-setting-action">Change Date of Birth</button>
+
+                <h3 class="settings-section-title">Diagnostics</h3>
+                <button id="viewCrashLogsBtn" class="btn-setting-action">View Crash Logs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Crash Logs Modal -->
+    <div id="crashLogsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🔍 Crash Logs</h2>
+                <button id="closeCrashLogs" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <p style="opacity: 0.7; font-size: 0.9rem;">Showing recent errors and crashes</p>
+                    <button id="clearCrashLogsBtn" class="btn-small">Clear Logs</button>
+                </div>
+                <div id="crashLogsList" class="crash-logs-list"></div>
             </div>
         </div>
     </div>
@@ -215,6 +235,16 @@
         <canvas id="milestoneConfettiCanvas"></canvas>
     </div>
 
+    <!-- Error Handler (must load first) -->
+    <script src="error-handler.js"></script>
+    <script>
+        // Initialize error handling immediately
+        if (window.ErrorHandler) {
+            window.ErrorHandler.initialize();
+        }
+    </script>
+
+    <!-- Main Script -->
     <script src="script.js"></script>
 </body>
 </html>
